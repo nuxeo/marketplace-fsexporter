@@ -35,11 +35,6 @@
         <version>${project.version}</version>
         <type>zip</type>
       </dependency>
-      <dependency>
-        <groupId>org.nuxeo.io</groupId>
-        <artifactId>nuxeo-fsexporter</artifactId>
-        <version>${nuxeo.distribution.version}</version>
-      </dependency>
     </dependencies>
   </dependencyManagement>
 
