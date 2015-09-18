@@ -1,7 +1,10 @@
 <!-- See documentation at http://doc.nuxeo.com/x/HgIz -->
 <package type="addon" name="fs-exporter" version="@VERSION@">
-  <title></title>
-  <description>
+  <title>Nuxeo FS Exporter</title>
+  <description>This plugin enables the user to export one chosen root structure of documents in Nuxeo to a specified
+    File System repository.
+    The installation of the plugin will add a new operation in "Services" called "ExportStructureToFS". This operation must
+    be added to the registries in Studio and then can be used in an automation chain.
   </description>
   <home-page>https://github.com/nuxeo/nuxeo-fsexporter</home-page>
   <vendor>Nuxeo</vendor>
