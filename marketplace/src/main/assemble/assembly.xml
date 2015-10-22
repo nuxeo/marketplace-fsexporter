@@ -1,10 +1,6 @@
-<project name="fsexporter-assembly"
-         default="build"
-         xmlns:nx="urn:nuxeo-build"
-         xmlns:artifact="urn:nuxeo-artifact">
+<project name="fsexporter-assembly" default="build" xmlns:nx="urn:nuxeo-build" xmlns:artifact="urn:nuxeo-artifact">
   <taskdef resource="org/nuxeo/build/antlib.xml" uri="urn:nuxeo-build" />
-  <taskdef resource="org/nuxeo/build/artifact/antlib.xml"
-           uri="urn:nuxeo-artifact" />
+  <taskdef resource="org/nuxeo/build/artifact/antlib.xml" uri="urn:nuxeo-artifact" />
   <taskdef resource="net/sf/antcontrib/antlib.xml" />
   <target name="init" unless="init.done">
     <property name="outdir" value="${maven.project.build.directory}" />
@@ -14,14 +10,10 @@
 
   <target name="expand">
     <!-- Include your artifacts in the graph adding your groupId to groupPrefixes -->
-    <artifact:nuxeo-expand includeTestScope="true"
-                           groupPrefixes="org.nuxeo.io" />
+    <artifact:nuxeo-expand includeTestScope="true" groupPrefixes="org.nuxeo.io" />
     <!-- For Nuxeo IDE being able to use that distribution as a SDK -->
-    <artifact:print output="${outdir}/artifacts-nuxeo-fsexporter.properties"
-                    mode="sdk" />
-    <artifact:print output="${outdir}/test-artifacts-nuxeo-fsexporter.properties"
-                    mode="sdk"
-                    scopes="test" />
+    <artifact:print output="${outdir}/artifacts-nuxeo-fsexporter.properties" mode="sdk" />
+    <artifact:print output="${outdir}/test-artifacts-nuxeo-fsexporter.properties" mode="sdk" scopes="test" />
     <!-- Prints the graph for debugging purpose -->
     <artifact:print output="${outdir}/dependency-tree.log" />
   </target>
@@ -39,10 +31,8 @@
         <filter token="DISTRIB_VERSION" value="${nuxeo.distribution.version}" />
       </filterset>
     </copy>
-    <copy file="${outdir}/artifacts-nuxeo-fsexporter.properties"
-          todir="${outdir}/marketplace/install" />
-    <copy file="${outdir}/test-artifacts-nuxeo-fsexporter.properties"
-          todir="${outdir}/marketplace/install" />
+    <copy file="${outdir}/artifacts-nuxeo-fsexporter.properties" todir="${outdir}/marketplace/install" />
+    <copy file="${outdir}/test-artifacts-nuxeo-fsexporter.properties" todir="${outdir}/marketplace/install" />
 
     <!-- Nuxeo bundles -->
     <copy todir="${outdir}/marketplace/install/bundles" overwrite="true">
@@ -74,16 +64,13 @@
       todir=&quot;${env.server.home}/sdk&quot; overwrite=&quot;true&quot; /&gt;${line.separator}
     &lt;copy file=&quot;${package.root}/install/test-artifacts-nuxeo-fsexporter.properties&quot;${line.separator}
       todir=&quot;${env.server.home}/sdk&quot; overwrite=&quot;true&quot; /&gt;${line.separator}" />
-    <var name="install.content"
-         value="${install.content}${line.separator}
+    <var name="install.content" value="${install.content}${line.separator}
   &lt;/install&gt;${line.separator}" />
-    <echo file="${outdir}/marketplace/install.xml"
-          message="${install.content}" />
+    <echo file="${outdir}/marketplace/install.xml" message="${install.content}" />
 
     <zip destfile="${outdir}/${maven.project.artifactId}-${maven.project.version}.zip"
          basedir="${outdir}/marketplace" />
-    <artifact:attach file="${outdir}/${maven.project.artifactId}-${maven.project.version}.zip"
-                     type="zip" />
+    <artifact:attach file="${outdir}/${maven.project.artifactId}-${maven.project.version}.zip" type="zip" />
   </target>
 
 </project>

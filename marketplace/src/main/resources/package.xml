@@ -14,10 +14,12 @@
   <require-terms-and-conditions-acceptance>false</require-terms-and-conditions-acceptance>
   <nuxeo-validation>nuxeo_certified</nuxeo-validation>
   <production-state>production_ready</production-state>
-  <supported>false</supported>
+  <supported>true</supported>
   <platforms>
     <platform>cap-@DISTRIB_VERSION@</platform>
+    <platform>cap-@DISTRIB_VERSION@-HF*</platform>
   </platforms>
   <license>LGPL 2.1</license>
   <license-url>http://www.gnu.org/licenses/lgpl-2.1.html</license-url>
+  <visibility>PUBLIC</visibility>
 </package>
