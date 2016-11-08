@@ -8,8 +8,8 @@
   </parent>
 
   <packaging>pom</packaging>
-  <artifactId>webdriver</artifactId>
-  <name>Nuxeo FS Exporter WebDriver functional tests</name>
+  <artifactId>startup</artifactId>
+  <name>Nuxeo FS Exporter Startup tests</name>
 
   <dependencies>
     <dependency>
@@ -38,8 +38,7 @@
     </dependency>
     <dependency>
       <groupId>org.nuxeo.ecm.distribution</groupId>
-      <artifactId>nuxeo-distribution-tomcat</artifactId>
-      <classifier>nuxeo-cap</classifier>
+      <artifactId>nuxeo-server-tomcat</artifactId>
       <type>zip</type>
       <scope>test</scope>
     </dependency>
