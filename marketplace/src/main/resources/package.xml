@@ -3,7 +3,7 @@
   <title>Nuxeo FS Exporter</title>
   <description>The Nuxeo File System Exporter addon enables the Nuxeo server administrator to export one chosen root structure of documents in the Nuxeo repository to a specified File System path. Export format is pluggable and two flavors are already provided: xlm export and simple file export.
   </description>
-  <home-page>https://github.com/nuxeo/nuxeo-fsexporter</home-page>
+  <home-page>https://doc.nuxeo.com/nxdoc/nuxeo-file-system-exporter/</home-page>
   <vendor>Nuxeo</vendor>
   <installer restart="true" />
   <uninstaller restart="false" />
