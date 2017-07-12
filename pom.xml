@@ -3,7 +3,7 @@
   <parent>
     <groupId>org.nuxeo.ecm.distribution</groupId>
     <artifactId>nuxeo-distribution</artifactId>
-    <version>9.2-SNAPSHOT</version>
+    <version>9.2</version>
     <relativePath></relativePath>
   </parent>
 
@@ -11,7 +11,7 @@
   <artifactId>parent</artifactId>
   <packaging>pom</packaging>
   <name>Nuxeo FS Exporter Marketplace Package parent POM</name>
-  <version>1.5.1-SNAPSHOT</version>
+  <version>1.5.1</version>
 
   <modules>
     <module>marketplace</module>
