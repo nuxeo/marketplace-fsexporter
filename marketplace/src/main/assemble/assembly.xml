@@ -12,8 +12,8 @@
     <!-- Include your artifacts in the graph adding your groupId to groupPrefixes -->
     <artifact:nuxeo-expand includeTestScope="true" groupPrefixes="org.nuxeo.io" />
     <!-- For Nuxeo IDE being able to use that distribution as a SDK -->
-    <artifact:print output="${outdir}/artifacts-nuxeo-fsexporter.properties" mode="sdk" />
-    <artifact:print output="${outdir}/test-artifacts-nuxeo-fsexporter.properties" mode="sdk" scopes="test" />
+    <artifact:print output="${outdir}/fs-exporter-artifacts.properties" mode="sdk" />
+    <artifact:print output="${outdir}/fs-exporter-test-artifacts.properties" mode="sdk" scopes="test" />
     <!-- Prints the graph for debugging purpose -->
     <artifact:print output="${outdir}/dependency-tree.log" />
   </target>
@@ -31,8 +31,8 @@
         <filter token="DISTRIB_VERSION" value="${nuxeo.distribution.version}" />
       </filterset>
     </copy>
-    <copy file="${outdir}/artifacts-nuxeo-fsexporter.properties" todir="${outdir}/marketplace/install" />
-    <copy file="${outdir}/test-artifacts-nuxeo-fsexporter.properties" todir="${outdir}/marketplace/install" />
+    <copy file="${outdir}/fs-exporter-artifacts.properties" todir="${outdir}/marketplace/install" />
+    <copy file="${outdir}/fs-exporter-test-artifacts.properties" todir="${outdir}/marketplace/install" />
 
     <!-- Nuxeo bundles -->
     <copy todir="${outdir}/marketplace/install/bundles" overwrite="true">
@@ -50,33 +50,67 @@
       </artifact:set>
     </copy>
 
-    <!-- Generate install.xml file -->
+    <!-- Generate install.xml content -->
     <!-- See documentation at http://doc.nuxeo.com/x/IgIz -->
-    <var name="install.content" value="&lt;install&gt;" />
-    <var name="install.content"
-         value="${install.content}${line.separator}
-    &lt;update file=&quot;${package.root}/install/bundles&quot; todir=&quot;${env.bundles}&quot; /&gt;" />
+    <var name="install.bundles" value=""/>
     <if>
-      <available file="${outdir}/marketplace/install/lib" />
+      <available file="${outdir}/marketplace/install/bundles"/>
       <then>
-        <var name="install.content"
-             value="${install.content}${line.separator}
-    &lt;update file=&quot;${package.root}/install/lib&quot; todir=&quot;${env.lib}&quot; /&gt;" />
+        <var name="install.bundles" value="${line.separator}
+  &lt;update file=&quot;${package.root}/install/bundles&quot; todir=&quot;${env.bundles}&quot; /&gt;"/>
       </then>
     </if>
-    <var name="install.content"
-         value="${install.content}${line.separator}
-    &lt;copy file=&quot;${package.root}/install/artifacts-nuxeo-fsexporter.properties&quot;${line.separator}
-      todir=&quot;${env.server.home}/sdk&quot; overwrite=&quot;true&quot; /&gt;${line.separator}
-    &lt;copy file=&quot;${package.root}/install/test-artifacts-nuxeo-fsexporter.properties&quot;${line.separator}
-      todir=&quot;${env.server.home}/sdk&quot; overwrite=&quot;true&quot; /&gt;${line.separator}" />
-    <var name="install.content" value="${install.content}${line.separator}
-  &lt;/install&gt;${line.separator}" />
-    <echo file="${outdir}/marketplace/install.xml" message="${install.content}" />
 
-    <nx:studioExtraction todir="${outdir}/marketplace">
-      <fileset dir="${outdir}/marketplace/install/bundles"/>
-    </nx:studioExtraction>
+
+    <var name="install.client" value=""/>
+    <if>
+      <available file="${outdir}/marketplace/install/client"/>
+      <then>
+        <var name="install.client" value="${line.separator}
+  &lt;update file=&quot;${package.root}/install/client&quot; todir=&quot;${env.server.home}/client&quot; /&gt;"/>
+      </then>
+    </if>
+
+
+    <var name="install.libs" value=""/>
+    <if>
+      <available file="${outdir}/marketplace/install/lib"/>
+      <then>
+
+        <var name="install.libs" value="${line.separator}
+  &lt;update file=&quot;${package.root}/install/lib&quot; todir=&quot;${env.lib}&quot; /&gt;"/>
+      </then>
+    </if>
+
+    <var
+      name="install.properties"
+      value="${line.separator}
+  &lt;copy file=&quot;${package.root}/install/fs-exporter-artifacts.properties&quot;${line.separator}
+    todir=&quot;${env.server.home}/sdk&quot; overwrite=&quot;true&quot; /&gt;${line.separator}
+  &lt;copy file=&quot;${package.root}/install/fs-exporter-test-artifacts.properties&quot;${line.separator}
+    todir=&quot;${env.server.home}/sdk&quot; overwrite=&quot;true&quot; /&gt;"/>
+
+    <var name="install.templates" value=""/>
+    <if>
+      <available file="${outdir}/marketplace/install/templates"/>
+      <then>
+        <var
+          name="install.templates"
+          value="${line.separator}
+  &lt;copy dir=&quot;${package.root}/install/templates&quot; todir=&quot;${env.templates}&quot; overwrite=&quot;true&quot; /&gt;${line.separator}
+  &lt;config addtemplate=&quot;fs-exporter&quot; /&gt;${line.separator}"/>
+      </then>
+    </if>
+
+    <copy file="src/main/resources/install.xml" todir="${outdir}/marketplace" overwrite="true">
+      <filterset>
+        <filter token="CLIENT" value="${install.client}"/>
+        <filter token="BUNDLES" value="${install.bundles}"/>
+        <filter token="LIBS" value="${install.libs}"/>
+        <filter token="PROPERTIES" value="${install.properties}"/>
+        <filter token="TEMPLATES" value="${install.templates}"/>
+      </filterset>
+    </copy>
 
     <zip destfile="${outdir}/${maven.project.artifactId}-${maven.project.version}.zip"
          basedir="${outdir}/marketplace" />
