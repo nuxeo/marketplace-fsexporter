@@ -11,7 +11,7 @@
   <artifactId>parent</artifactId>
   <packaging>pom</packaging>
   <name>Nuxeo FS Exporter Marketplace Package parent POM</name>
-  <version>1.4.4-SNAPSHOT</version>
+  <version>1.4.4</version>
 
   <modules>
     <module>marketplace</module>
