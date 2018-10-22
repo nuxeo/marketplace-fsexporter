@@ -3,7 +3,7 @@
   <parent>
     <groupId>org.nuxeo.ecm.distribution</groupId>
     <artifactId>nuxeo-distribution</artifactId>
-    <version>8.10-HF38-SNAPSHOT</version>
+    <version>8.10</version>
     <relativePath></relativePath>
   </parent>
 
@@ -33,6 +33,11 @@
         <artifactId>marketplace</artifactId>
         <version>${project.version}</version>
         <type>zip</type>
+      </dependency>
+      <dependency>
+        <groupId>org.nuxeo.io</groupId>
+        <artifactId>nuxeo-fsexporter</artifactId>
+        <version>8.10-NXP-25846</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
