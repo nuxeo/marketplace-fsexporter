@@ -37,7 +37,7 @@
       <dependency>
         <groupId>org.nuxeo.io</groupId>
         <artifactId>nuxeo-fsexporter</artifactId>
-        <version>8.10-NXP-25846</version>
+        <version>8.10-NXP-26071</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
